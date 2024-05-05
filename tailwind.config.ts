@@ -8,7 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
-
+      fontFamily: {
+        customFont: ['"Custom Font"', "nyt-karnakcondensed"],
+      },
     },
   },
   plugins: [],
