@@ -11,6 +11,20 @@ const config: Config = {
       fontFamily: {
         customFont: ['"Custom Font"', "nyt-karnakcondensed"],
       },
+      colors: {
+        'nyt-blue': '#b0c4ef',
+        'nyt-yellow': '#f9df6d',
+        'nyt-purple': '#ba81c5',
+        'nyt-green': '#a0c35a',
+        'nyt-gray': '#efefe6',
+        'nyt-grayer':'#5a594e',
+      },
+      height: {
+        'allConnections': '25.5rem',
+      },
+      width: {
+        'connectionW':'39rem',
+      }
     },
   },
   plugins: [],
