@@ -17,14 +17,34 @@ const config: Config = {
         'nyt-purple': '#ba81c5',
         'nyt-green': '#a0c35a',
         'nyt-gray': '#efefe6',
-        'nyt-grayer':'#5a594e',
+        'nyt-grayer': '#5a594e',
+        'nyt-covered': '#7f7f7f',
       },
       height: {
         'allConnections': '25.5rem',
       },
       width: {
-        'connectionW':'39rem',
-      }
+        'connectionW': '39rem',
+      },
+      animation: {
+        fade: 'fadeInText 300ms ease-in-out',
+        shrink: 'shrinking 200ms ease-in-out forwards',
+      },
+      keyframes: {
+        fadeInText: {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
+        shrinking: {
+          from: {scale: '1'},
+          to: {scale: '0',
+            opacity: '0',
+          },
+        }
+      },
+      transitionDuration: {
+        '50': '50ms',
+      },
     },
   },
   plugins: [],
