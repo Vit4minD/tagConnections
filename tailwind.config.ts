@@ -29,6 +29,7 @@ const config: Config = {
       animation: {
         fade: 'fadeInText 300ms ease-in-out',
         shrink: 'shrinking 200ms ease-in-out forwards',
+        popUp: 'popup 300ms ease-in-out forwards'
       },
       keyframes: {
         fadeInText: {
@@ -40,6 +41,10 @@ const config: Config = {
           to: {scale: '0',
             opacity: '0',
           },
+        },
+        popup: {
+          from: {scale: '0'},
+          to: {scale: '1'},
         }
       },
       transitionDuration: {

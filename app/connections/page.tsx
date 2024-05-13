@@ -55,7 +55,7 @@ export default function Home() {
     const blue = ["FEW", "MANY", "SEVERAL", "SOME"]
     const purple = ["FOOL", "LOVERS", "MAGICIAN", "TOWER"]
     const groupAnswers = {
-        'yellow': (<div className='mt-2 flex-col font-sans h-24 text-xl w-full bg-nyt-yellow rounded-xl flex justify-center items-center'>
+        'yellow': (<div className=' animate-popUp mt-2 flex-col font-sans h-24 text-xl w-full bg-nyt-yellow rounded-xl flex justify-center items-center'>
             <div className='flex-col font-bold text-center'>
                 CONNECT
                 <div className='font-normal'>
@@ -63,7 +63,7 @@ export default function Home() {
                 </div>
             </div>
         </div>),
-        'green': (<div className='mt-2 flex-col font-sans h-24 text-xl w-full bg-nyt-green rounded-xl flex justify-center items-center'>
+        'green': (<div className=' animate-popUp mt-2 flex-col font-sans h-24 text-xl w-full bg-nyt-green rounded-xl flex justify-center items-center'>
             <div className='flex-col font-bold text-center'>
                 NUISANCE
                 <div className='font-normal'>
@@ -71,7 +71,7 @@ export default function Home() {
                 </div>
             </div>
         </div>),
-        'blue': (<div className='mt-2 flex-col font-sans h-24 text-xl w-full bg-nyt-blue rounded-xl flex justify-center items-center'>
+        'blue': (<div className=' animate-popUp mt-2 flex-col font-sans h-24 text-xl w-full bg-nyt-blue rounded-xl flex justify-center items-center'>
             <div className='flex-col font-bold text-center'>
                 QUANTITY WORDS
                 <div className='font-normal'>
@@ -79,7 +79,7 @@ export default function Home() {
                 </div>
             </div>
         </div>),
-        'purple': (<div className='mt-2 flex-col font-sans h-24 text-xl w-full bg-nyt-purple rounded-xl flex justify-center items-center'>
+        'purple': (<div className=' animate-popUp mt-2 flex-col font-sans h-24 text-xl w-full bg-nyt-purple rounded-xl flex justify-center items-center'>
             <div className='flex-col font-bold text-center'>
                 TAROT CARDS, WITH "THE"
                 <div className='font-normal'>
