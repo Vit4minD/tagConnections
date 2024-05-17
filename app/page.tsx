@@ -92,7 +92,7 @@ export default function Home() {
     //     <Image alt="logo" src={TagLogo} />
     //   </div>
     // </div>
-    <main className="w-svw h-svh flex-col bg-homepage ">
+    <main className="w-full min-h-screen flex flex-col bg-homepage ">
 
       <div className='md:pt-20 pt-10 text-4xl  md:text-8xl text-center w-full font-serif'>Welcome to Griffin Gazette Connections!</div>
 
