@@ -374,12 +374,14 @@ export default function Home() {
         } if (!visb) {
           await delay(800);
           setVisb(true);
-          if(ans2.length == 0) ans2 = quantityWords;
+          if(ans2.length == 0) ans2 = ans1;
+          if(ans1.length == 0) ans2 = quantityWords;
           ans2.forEach((element) => {
             if (!blue.includes(element)) ans3.push(element);
           });
           await delay(150);
           await setQuatityWords(ans3);
+          if(dans2.length == 0) dans2 = dans1;
           if(dans2.length == 0) dans2 = correctAnswers;
           dans3 = [...dans2, groupAnswers["blue"]]
           setCorrectAnswers(dans3);
@@ -390,13 +392,17 @@ export default function Home() {
         } if (!visp) {
           await delay(800);
           setVisp(true);
+          if(ans3.length == 0) ans3 = ans2;
+          if(ans3.length == 0) ans3 = ans1;
           if(ans3.length == 0) ans3 = quantityWords;
           ans3.forEach((element) => {
             if (!purple.includes(element)) ans4.push(element);
           });
           await delay(150);
           await setQuatityWords(ans4);
-          if(dans3.length == 0) dans3 = correctAnswers;
+          if(dans3.length == 0) dans3 = dans2;
+          if(dans2.length == 0) dans3 = dans1;
+          if(dans2.length == 0) dans3 = correctAnswers;
           dans4 = [...dans3, groupAnswers["purple"]]
           setCorrectAnswers(dans4);
           correctAnswersDisplay.push("purple");
