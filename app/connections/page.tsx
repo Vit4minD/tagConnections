@@ -449,7 +449,7 @@ export default function Home() {
         </Modal>
       </ChakraProvider>
       <div className="md:text-xl flex text-lg mx-auto justify-center text-center">
-        Create four tag-themed groups of four!
+        Create four TAG-themed groups of four!
       </div>
       <div className="h-smallConnections w-smallW mt-7 mx-auto md:w-connectionW md:h-allConnections md:mx-auto text-center">
         {correctAnswers.map((element: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined, index: Key | null | undefined) => (
