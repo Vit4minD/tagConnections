@@ -5,21 +5,17 @@ const Confetti: React.FC = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             confetti({
-                particleCount: 500, // Increase particle count
-                spread: 400, // Increase spread
+                particleCount: 500, 
+                spread: 400, 
                 origin: {y: -.5},
             });
         }, 2000);
-
-        // Clear the interval after a certain duration (e.g., 5 seconds)
-        const animationDuration = 3000; // 5 seconds
+        const animationDuration = 3000; 
         setTimeout(() => {
             clearInterval(interval);
         }, animationDuration);
-
         return () => clearInterval(interval);
     }, []);
-
     return null; // No need to render anything
 };
 

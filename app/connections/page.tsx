@@ -1,5 +1,5 @@
 "use client";
-import { Box, ChakraProvider, useDisclosure } from "@chakra-ui/react";
+import { ChakraProvider, useDisclosure } from "@chakra-ui/react";
 import Confetti from './confetti';
 import {
   Modal,
@@ -17,13 +17,14 @@ import {
   ReactNode,
   ReactPortal,
   SetStateAction,
+  useCallback,
   useEffect,
   useState,
 } from "react";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import { useToast } from "@chakra-ui/react";
 import { auth, db } from "@/firebase/config";
-import { collection, doc, DocumentData, DocumentReference, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { User } from "firebase/auth";
 
 export default function Home() {
@@ -45,42 +46,47 @@ export default function Home() {
   useEffect(() => {
     const fetchUserData = async () => {
       if (user) {
-        const userDocumentRef = doc(db, 'users', user?.email ?? '');
-        const docSnapshot = await getDoc(userDocumentRef);
+        try {
+          const userDocumentRef = doc(db, 'users', user.email || '');
+          const docSnapshot = await getDoc(userDocumentRef);
+          if (docSnapshot.exists()) {
+            const data = docSnapshot.data();
+            setLives(data.lives);
+            setVisy(data.visy);
+            setVisg(data.visg);
+            setVisb(data.visb);
+            setVisp(data.visp);
+            setAllSubmissions(data.allSubmissions);
+            const updatedCorrectAnswers: JSX.Element[] = [];
+            data.correctAnswersDisplay.forEach((element: string) => {
+              if (element === 'yellow') updatedCorrectAnswers.push(groupAnswers.yellow);
+              if (element === 'green') updatedCorrectAnswers.push(groupAnswers.green);
+              if (element === 'blue') updatedCorrectAnswers.push(groupAnswers.blue);
+              if (element === 'purple') updatedCorrectAnswers.push(groupAnswers.purple);
+            });
 
-        if (docSnapshot.exists()) {
-          const data = docSnapshot.data();
-          setLives(data['lives'])
-          setVisy(data['visy'])
-          setVisg(data['visg'])
-          setVisb(data['visb'])
-          setVisp(data['visp'])
-          setAllSubmissions(data['allSubmissions'])
-          setCorrectAnswersDisplay(data['correctAnswersDisplay']); // Update correctAnswersDisplay state here
-
-          // Use the updated correctAnswersDisplay state in the loop
-          data['correctAnswersDisplay'].forEach((element: string) => {
-            if (element === "yellow") setCorrectAnswers((prevCorrectAnswers: any) => [...prevCorrectAnswers, groupAnswers["yellow"]])
-            if (element === "green") setCorrectAnswers((prevCorrectAnswers: any) => [...prevCorrectAnswers, groupAnswers["green"]])
-            if (element === "blue") setCorrectAnswers((prevCorrectAnswers: any) => [...prevCorrectAnswers, groupAnswers["blue"]])
-            if (element === "purple") setCorrectAnswers((prevCorrectAnswers: any) => [...prevCorrectAnswers, groupAnswers["purple"]])
-          });
-          setQuatityWords(data['quantityWords'])
+            setCorrectAnswersDisplay(data.correctAnswersDisplay);
+            setCorrectAnswers(updatedCorrectAnswers);
+            setQuatityWords(data.quantityWords);
+          }
+        } catch (error) {
+          console.error('Error fetching user data: ', error);
         }
       }
     };
     fetchUserData();
-  }, [db, user]);
-  const updateUser = async (userId: string, newData: any) => {
-    const userRef = doc(db, 'users', userId);
+  }, [user]);
 
+  const updateUser = useCallback(async (userId: string, newData: any) => {
+    const userRef = doc(db, 'users', userId);
     try {
       await updateDoc(userRef, newData);
       console.log('Document successfully updated!');
     } catch (error) {
       console.error('Error updating document: ', error);
     }
-  };
+  }, []);
+
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -92,7 +98,6 @@ export default function Home() {
         setUser(null);
       }
     });
-
     // Cleanup the subscription when the component unmounts
     return () => unsubscribe();
   }, []);
@@ -358,13 +363,13 @@ export default function Home() {
         } if (!visg) {
           await delay(800);
           setVisg(true);
-          if(ans1.length == 0) ans1 = quantityWords;
+          if (ans1.length == 0) ans1 = quantityWords;
           ans1.forEach((element) => {
             if (!green.includes(element)) ans2.push(element);
           });
           await delay(150);
           await setQuatityWords(ans2);
-          if(dans1.length == 0) dans1 = correctAnswers;
+          if (dans1.length == 0) dans1 = correctAnswers;
           dans2 = [...dans1, groupAnswers["green"]]
           setCorrectAnswers(dans2);
           correctAnswersDisplay.push("green");
@@ -374,15 +379,15 @@ export default function Home() {
         } if (!visb) {
           await delay(800);
           setVisb(true);
-          if(ans2.length == 0) ans2 = ans1;
-          if(ans1.length == 0) ans2 = quantityWords;
+          if (ans2.length == 0) ans2 = ans1;
+          if (ans1.length == 0) ans2 = quantityWords;
           ans2.forEach((element) => {
             if (!blue.includes(element)) ans3.push(element);
           });
           await delay(150);
           await setQuatityWords(ans3);
-          if(dans2.length == 0) dans2 = dans1;
-          if(dans2.length == 0) dans2 = correctAnswers;
+          if (dans2.length == 0) dans2 = dans1;
+          if (dans2.length == 0) dans2 = correctAnswers;
           dans3 = [...dans2, groupAnswers["blue"]]
           setCorrectAnswers(dans3);
           correctAnswersDisplay.push("blue");
@@ -392,17 +397,17 @@ export default function Home() {
         } if (!visp) {
           await delay(800);
           setVisp(true);
-          if(ans3.length == 0) ans3 = ans2;
-          if(ans3.length == 0) ans3 = ans1;
-          if(ans3.length == 0) ans3 = quantityWords;
+          if (ans3.length == 0) ans3 = ans2;
+          if (ans3.length == 0) ans3 = ans1;
+          if (ans3.length == 0) ans3 = quantityWords;
           ans3.forEach((element) => {
             if (!purple.includes(element)) ans4.push(element);
           });
           await delay(150);
           await setQuatityWords(ans4);
-          if(dans3.length == 0) dans3 = dans2;
-          if(dans2.length == 0) dans3 = dans1;
-          if(dans2.length == 0) dans3 = correctAnswers;
+          if (dans3.length == 0) dans3 = dans2;
+          if (dans2.length == 0) dans3 = dans1;
+          if (dans2.length == 0) dans3 = correctAnswers;
           dans4 = [...dans3, groupAnswers["purple"]]
           setCorrectAnswers(dans4);
           correctAnswersDisplay.push("purple");
@@ -415,8 +420,8 @@ export default function Home() {
   };
 
   return (
-    <main className=" w-svw h-svh text-center flex-col items-center justify-center">
-      <div className="hidden lg:block w-full pb-8  border-gray-300 border-2">
+    <main className="w-svw h-svh text-center flex-col items-center justify-center">
+      <div className="hidden lg:block w-full pb-8 border-gray-300 border-2">
         <div className="mt-12 ml-40 gap-3 text-5xl flex justify-start items-end font-extrabold font-sans">
           <div className="">Griffin Connections</div>
           <div className="text-2xl font-sans font-extralight">May 17, 2024</div>
@@ -443,28 +448,13 @@ export default function Home() {
           </ModalContent>
         </Modal>
       </ChakraProvider>
-      <div className="md:text-xl flex text-lg  mx-auto justify-center text-center">
+      <div className="md:text-xl flex text-lg mx-auto justify-center text-center">
         Create four tag-themed groups of four!
       </div>
-      <div className=" h-smallConnections w-smallW mt-7  mx-auto md:w-connectionW md:h-allConnections md:mx-auto  text-center">
-        {correctAnswers.map(
-          (
-            element:
-              | string
-              | number
-              | bigint
-              | boolean
-              | ReactElement<any, string | JSXElementConstructor<any>>
-              | Iterable<ReactNode>
-              | ReactPortal
-              | Promise<AwaitedReactNode>
-              | null
-              | undefined,
-            index: Key | null | undefined
-          ) => (
-            <div key={index}>{element}</div>
-          )
-        )}
+      <div className="h-smallConnections w-smallW mt-7 mx-auto md:w-connectionW md:h-allConnections md:mx-auto text-center">
+        {correctAnswers.map((element: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined, index: Key | null | undefined) => (
+          <div key={index}>{element}</div>
+        ))}
         <form>
           <div className="animate-popUp ease-in-out duration-75 gap-x-1 md:gap-x-2 grid grid-cols-4">
             {quantityWords.map((word, index) => (
@@ -475,15 +465,12 @@ export default function Home() {
                 }}
                 key={index}
                 value={word}
-                className={`${selectedWords.includes(word) ? "bg-nyt-grayer" : "bg-nyt-gray"
-                  } ${selectedWords.includes(word) ? "text-white" : "text-black"
-                  } select-none ease-out duration-75 rounded-xl mt-2 h-20 lg:h-24 ${selectedWords.includes(word) && selectAnimation ? 'animate-shake' : ''}
-                   items-center text-sm md:text-sm  justify-center flex lg:text-xl bg-nyt-gray font-bold ${selectedWords.includes(word) && correctAnimation ? 'animate-bounceOnce' : ''}`}
+                className={`select-none ease-out duration-75 rounded-xl mt-2 h-20 lg:h-24 items-center text-sm md:text-sm justify-center flex lg:text-xl font-bold 
+                ${selectedWords.includes(word) ? "bg-nyt-grayer text-white" : "bg-nyt-gray text-black"} 
+                ${selectedWords.includes(word) && selectAnimation ? 'animate-shake' : ''} 
+                ${selectedWords.includes(word) && correctAnimation ? 'animate-bounceOnce' : ''}`}
               >
-                <label
-                  className={`hover: cursor-pointer ${clicked ? " animate-fade" : ""
-                    }`}
-                >
+                <label className={`hover: cursor-pointer ${clicked ? " animate-fade" : ""}`}>
                   {word}
                 </label>
               </button>
@@ -491,31 +478,18 @@ export default function Home() {
           </div>
           <div className="m-7 text-base md:text-xl items-center justify-center flex">
             Mistakes remaining:
-            <span
-              className={` ${lives >= 1 ? "visible" : "animate-shrink "
-                } w-4 h-4 md:w-5 md:h-5 mx-1 md:mx-2 inline-block rounded-full bg-nyt-grayer`}
-            ></span>
-            <span
-              className={` ${lives >= 2 ? "visible" : "animate-shrink "
-                } w-4 h-4 md:w-5 md:h-5 mx-1 md:mx-2 inline-block rounded-full bg-nyt-grayer`}
-            ></span>
-            <span
-              className={` ${lives >= 3 ? "visible" : "animate-shrink "
-                } w-4 h-4 md:w-5 md:h-5 mx-1 md:mx-2 inline-block rounded-full bg-nyt-grayer`}
-            ></span>
-            <span
-              className={` ${lives >= 4 ? "visible" : "animate-shrink "
-                } w-4 h-4 md:w-5 md:h-5 mx-1 md:mx-2 inline-block rounded-full bg-nyt-grayer`}
-            ></span>
+            {[1, 2, 3, 4].map((num) => (
+              <span
+                key={num}
+                className={`w-4 h-4 md:w-5 md:h-5 mx-1 md:mx-2 inline-block rounded-full bg-nyt-grayer ${lives >= num ? "visible" : "animate-shrink"}`}
+              ></span>
+            ))}
           </div>
-          {correctAnswers.length != 4 ? (
+          {correctAnswers.length !== 4 && (
             <div className="justify-center font-semibold text-sm md:text-lg flex gap-x-3 md:gap-x-8">
               <button
                 onClick={shuffle}
-                className={`${lives == 0 ? ' scale-0' : ''} py-4 px-6  rounded-full border-2 ${clicked
-                  ? "text-nyt-covered  select-none hover:cursor-default border-nyt-covered"
-                  : "hover:bg-gray-200 text-black border-black"
-                  }`}
+                className={`py-4 px-6 rounded-full border-2 ${clicked ? "text-nyt-covered select-none hover:cursor-default border-nyt-covered" : "hover:bg-gray-200 text-black border-black"} ${lives === 0 ? 'scale-0' : ''}`}
               >
                 Shuffle
               </button>
@@ -524,30 +498,21 @@ export default function Home() {
                   e.preventDefault();
                   setSelectedWords([]);
                 }}
-                className={`${lives == 0 ? ' scale-0' : ''} py-4 px-6  rounded-full border-2
-                        ${selectedWords.length > 0
-                    ? "hover:bg-gray-200 text-black select-text border-black"
-                    : "hover: pointer-events-none border-nyt-covered text-nyt-covered"
-                  }`}
+                className={`py-4 px-6 rounded-full border-2 ${selectedWords.length > 0 ? "hover:bg-gray-200 text-black select-text border-black" : "hover: pointer-events-none border-nyt-covered text-nyt-covered"} ${lives === 0 ? 'scale-0' : ''}`}
               >
                 Deselect all
               </button>
               <button
                 onClick={checkAnswer}
-                className={`${lives == 0 ? ' scale-0' : ''} py-4 px-6  rounded-full border-2 ${pauseSubmission ? 'select-none hover: pointer-events-none bg-gray-500 border-gray-500' : ''}
-                        ${selectedWords.length == 4
-                    ? "hover:bg-gray-500 hover:border-gray-500 bg-black text-white select-text border-black"
-                    : "hover: pointer-events-none border-nyt-covered text-nyt-covered"
-                  }`}
+                className={`py-4 px-6 rounded-full border-2 ${pauseSubmission ? 'select-none hover: pointer-events-none bg-gray-500 border-gray-500' : ''} ${selectedWords.length === 4 ? "hover:bg-gray-500 hover:border-gray-500 bg-black text-white select-text border-black" : "hover: pointer-events-none border-nyt-covered text-nyt-covered"} ${lives === 0 ? 'scale-0' : ''}`}
               >
                 Submit
               </button>
             </div>
-          ) : null}
+          )}
         </form>
       </div>
-      {/* <button onClick={handleLogout} className="p-8 bg-black rounded-2xl m-5 text-white">log out</button> */}
-      {correctAnswersDisplay.length == 4 ? <Confetti /> : null}
+      {correctAnswersDisplay.length === 4 && <Confetti />}
     </main>
   );
 }
