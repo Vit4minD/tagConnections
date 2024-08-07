@@ -30,7 +30,12 @@ import { User } from "firebase/auth";
 export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [clicked, setClicked] = useState(false);
-  const [quantityWords, setQuatityWords] = useState<string[]>(["IT", "HALLOWEEN", "SPIRIT WEEK", "SLEEP DE- PRIVATION", "SENIOR SUNRISE", "PHOTO- SYNTHESIS", "WINTER DANCE", "GIES", "SUNBURN", "TEAM", "AP EXAMS", "PROCRA- STINATION", "PROM", "ALONG", "SOLAR ECLIPSE", "HOMEWORK"]);
+  const [quantityWords, setQuatityWords] = useState<string[]>([
+    "YELLOW", "COMMONS", "BLUE", "LAPTOP", "SEM",
+    "CAFETERIA", "NOTEBOOK", "ID BADGE", "LOCKERS",
+    "#1 IN TX", "TAG", "SBM", "HEALTH", "PENCIL",
+    "LIBRARY", "GRIFFIN"
+  ]);
   const [user, setUser] = useState<null | User>(null);
   const toast = useToast();
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
@@ -131,40 +136,40 @@ export default function Home() {
   };
 
   //word list
-  const yellow = ["PROCRA- STINATION", "SLEEP DE- PRIVATION", "AP EXAMS", "HOMEWORK"];
-  const green = ["WINTER DANCE", "HALLOWEEN", "SPIRIT WEEK", "PROM"];
-  const blue = ["SENIOR SUNRISE", "SOLAR ECLIPSE", "PHOTO- SYNTHESIS", "SUNBURN"];
-  const purple = ["GIES", "IT", "ALONG", "TEAM"];
+  const yellow = ["SEM", "SBM", "HEALTH", "TAG"];
+  const green = ["LOCKERS", "COMMONS", "LIBRARY", "CAFETERIA"];
+  const blue = ["PENCIL", "NOTEBOOK", "LAPTOP", "ID BADGE"];
+  const purple = ["BLUE", "YELLOW", "GRIFFIN", "#1 IN TX"];
   const groupAnswers = {
     yellow: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-yellow rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          TAG LIFE
-          <div className="font-normal">PROCRASTINATION, SLEEP DEPRIVATION, AP EXAMS, HOMEWORK</div>
+          NEIGHBOR SCHOOLS
+          <div className="font-normal">SEM, SBM, HEALTH, TAG</div>
         </div>
       </div>
     ),
     green: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-green rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          WHEN YOU CAN DRESS UP
-          <div className="font-normal">WINTER DANCE, HALLOWEEN, SPIRIT WEEK, PROM</div>
+          COMMON SPOTS
+          <div className="font-normal">LOCKERS, COMMONS, LIBRARY, CAFETERIA</div>
         </div>
       </div>
     ),
     blue: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-blue rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          THINGS DEALING WITH THE SUN
-          <div className="font-normal">SENIOR SUNRISE, SOLAR ECLIPSE, PHOTOSYNTHESIS, SUNBURN</div>
+          1ST DAY OF SCHOOL ITEMS
+          <div className="font-normal">PENCIL, NOTEBOOK, LAPTOP, ID BADGE</div>
         </div>
       </div>
     ),
     purple: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-purple rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          TAG — ____
-          <div className="font-normal">GIES, IT, ALONG, TEAM</div>
+          TAG EMBODIMENT
+          <div className="font-normal">BLUE, YELLOW, GRIFFIN, #1 IN TEXAS</div>
         </div>
       </div>
     ),

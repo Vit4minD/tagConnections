@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { auth, db } from "@/firebase/config";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useRouter } from 'next/navigation'
-import { setDoc, doc, collection, getDoc } from "firebase/firestore";
+import { setDoc, doc, collection, getDoc, updateDoc, getDocs } from "firebase/firestore";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -12,6 +12,44 @@ export default function Home() {
   const provider = new GoogleAuthProvider();
   const colRef = collection(db, 'users');
   const [loading, setLoading] = useState(false);
+
+  async function updateAllDocuments() {
+    const collectionRef = collection(db, "users"); // Replace 'your-collection-name' with your actual collection name
+
+    try {
+      const querySnapshot = await getDocs(collectionRef);
+
+      querySnapshot.forEach(async (docSnap) => {
+        const docRef = doc(collectionRef, docSnap.id); // Use doc function here, not docSnap
+        await setDoc(
+          docRef,
+          {
+            allSubmissions: [],
+            correctAnswersDisplay: [],
+            lives: 4,
+            visy: false,
+            visg: false,
+            visb: false,
+            visp: false,
+            correctAnswers: [],
+            quantityWords: [
+              "YELLOW", "COMMONS", "BLUE", "LAPTOP", "SEM",
+              "CAFETERIA", "NOTEBOOK", "ID BADGE", "LOCKERS",
+              "#1 IN TX", "TAG", "SBM", "HEALTH", "PENCIL",
+              "LIBRARY", "GRIFFIN"
+            ]
+          },
+          { merge: false }
+        );
+        console.log(`Document ${docSnap.id} updated successfully`);
+      });
+
+      console.log("All documents updated successfully");
+    } catch (error) {
+      console.error("Error updating documents: ", error);
+    }
+  }
+
   const handleGoogleSignIn = async () => {
     setLoading(true);
     try {
@@ -35,10 +73,10 @@ export default function Home() {
               visp: false,
               correctAnswers: [],
               quantityWords: [
-                "IT", "HALLOWEEN", "SPIRIT WEEK", "SLEEP DE- PRIVATION",
-                "SENIOR SUNRISE", "PHOTO- SYNTHESIS", "WINTER DANCE",
-                "GIES", "SUNBURN", "TEAM", "AP EXAMS", "PROCRA- STINATION",
-                "PROM", "ALONG", "SOLAR ECLIPSE", "HOMEWORK"
+                "YELLOW", "COMMONS", "BLUE", "LAPTOP", "SEM",
+                "CAFETERIA", "NOTEBOOK", "ID BADGE", "LOCKERS",
+                "#1 IN TX", "TAG", "SBM", "HEALTH", "PENCIL",
+                "LIBRARY", "GRIFFIN"
               ]
             });
           }
@@ -74,7 +112,7 @@ export default function Home() {
             Based off the New York Times Game Connections.
           </p>
           <button
-            onClick={handleGoogleSignIn}
+            onClick={updateAllDocuments}
             className="bg-white mt-8 md:mt-16 mx-auto ease-in-out duration-100 text-base md:text-4xl hover:bg-slate-200 border-2 hover:scale-105 hover:shadow-2xl shadow-xl rounded-3xl p-2 md:p-3 border-black items-center flex gap-x-2 justify-center font-serif"
           >
             <FcGoogle className="" />
