@@ -112,7 +112,7 @@ export default function Home() {
             Based off the New York Times Game Connections.
           </p>
           <button
-            onClick={updateAllDocuments}
+            onClick={handleGoogleSignIn}
             className="bg-white mt-8 md:mt-16 mx-auto ease-in-out duration-100 text-base md:text-4xl hover:bg-slate-200 border-2 hover:scale-105 hover:shadow-2xl shadow-xl rounded-3xl p-2 md:p-3 border-black items-center flex gap-x-2 justify-center font-serif"
           >
             <FcGoogle className="" />
