@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { setDoc, doc, collection, getDoc, updateDoc, getDocs } from "firebase/firestore";
 import Image from "next/image";
 import { useState } from "react";
+import React from "react";
 
 export default function Home() {
   const router = useRouter();
@@ -32,12 +33,7 @@ export default function Home() {
             visb: false,
             visp: false,
             correctAnswers: [],
-            quantityWords: [
-              "YELLOW", "COMMONS", "BLUE", "LAPTOP", "SEM",
-              "CAFETERIA", "NOTEBOOK", "ID BADGE", "LOCKERS",
-              "#1 IN TX", "TAG", "SBM", "HEALTH", "PENCIL",
-              "LIBRARY", "GRIFFIN"
-            ]
+            quantityWords: ["LATTE", "FRIED FOODS", "CANDY", "PATCH", "TURKEY LEG", "ZOMBIE", "WITCH", "FUNNEL CAKE", "PETTING ZOO", "GHOST", "STICKERS", "PIE", "VAMPIRE", "TOYS", "CHIPS", "LANTERN"]
           },
           { merge: false }
         );
@@ -72,12 +68,7 @@ export default function Home() {
               visb: false,
               visp: false,
               correctAnswers: [],
-              quantityWords: [
-                "YELLOW", "COMMONS", "BLUE", "LAPTOP", "SEM",
-                "CAFETERIA", "NOTEBOOK", "ID BADGE", "LOCKERS",
-                "#1 IN TX", "TAG", "SBM", "HEALTH", "PENCIL",
-                "LIBRARY", "GRIFFIN"
-              ]
+              quantityWords: ["LATTE", "FRIED FOODS", "CANDY", "PATCH", "TURKEY LEG", "ZOMBIE", "WITCH", "FUNNEL CAKE", "PETTING ZOO", "GHOST", "STICKERS", "PIE", "VAMPIRE", "TOYS", "CHIPS", "LANTERN"]
             });
           }
           router.push("/connections");

@@ -30,12 +30,8 @@ import { User } from "firebase/auth";
 export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [clicked, setClicked] = useState(false);
-  const [quantityWords, setQuatityWords] = useState<string[]>([
-    "YELLOW", "COMMONS", "BLUE", "LAPTOP", "SEM",
-    "CAFETERIA", "NOTEBOOK", "ID BADGE", "LOCKERS",
-    "#1 IN TX", "TAG", "SBM", "HEALTH", "PENCIL",
-    "LIBRARY", "GRIFFIN"
-  ]);
+  const [quantityWords, setQuatityWords] = useState<string[]>(["LATTE", "FRIED FOODS", "CANDY", "PATCH", "TURKEY LEG", "ZOMBIE", "WITCH", "FUNNEL CAKE", "PETTING ZOO", "GHOST", "STICKERS", "PIE", "VAMPIRE", "TOYS", "CHIPS", "LANTERN"]
+  );
   const [user, setUser] = useState<null | User>(null);
   const toast = useToast();
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
@@ -135,41 +131,41 @@ export default function Home() {
     }, 300);
   };
 
-  //word list
-  const yellow = ["SEM", "SBM", "HEALTH", "TAG"];
-  const green = ["LOCKERS", "COMMONS", "LIBRARY", "CAFETERIA"];
-  const blue = ["PENCIL", "NOTEBOOK", "LAPTOP", "ID BADGE"];
-  const purple = ["BLUE", "YELLOW", "GRIFFIN", "#1 IN TX"];
+  //word list, title is last index
+  const yellow = ["PETTING ZOO", "FRIED FOODS", "TURKEY LEG", "FUNNEL CAKE"];
+  const green = ["GHOST", "WITCH", "ZOMBIE", "VAMPIRE"];
+  const blue = ["CANDY", "CHIPS", "TOYS", "STICKERS"];
+  const purple = ["PIE", "PATCH", "LATTE", "LANTERN"];
   const groupAnswers = {
     yellow: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-yellow rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          NEIGHBOR SCHOOLS
-          <div className="font-normal">SEM, SBM, HEALTH, TAG</div>
+          {"THINGS @ THE STATE FAIR"}
+          <div className="font-normal">{yellow[0]}, {yellow[1]}, {yellow[2]}, {yellow[3]}</div>
         </div>
       </div>
     ),
     green: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-green rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          COMMON SPOTS
-          <div className="font-normal">LOCKERS, COMMONS, LIBRARY, CAFETERIA</div>
+          {"HALLOWEEN COSTUMES"}
+          <div className="font-normal">{green[0]}, {green[1]}, {green[2]}, {green[3]}</div>
         </div>
       </div>
     ),
     blue: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-blue rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          1ST DAY OF SCHOOL ITEMS
-          <div className="font-normal">PENCIL, NOTEBOOK, LAPTOP, ID BADGE</div>
+          {"TRICK OR TREAT"}
+          <div className="font-normal">{blue[0]}, {blue[1]}, {blue[2]}, {blue[3]}</div>
         </div>
       </div>
     ),
     purple: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-purple rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          TAG EMBODIMENT
-          <div className="font-normal">BLUE, YELLOW, GRIFFIN, #1 IN TEXAS</div>
+          {"PUMPKIN _"}
+          <div className="font-normal">{purple[0]}, {purple[1]}, {purple[2]}, {purple[3]}</div>
         </div>
       </div>
     ),
