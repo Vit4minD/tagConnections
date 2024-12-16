@@ -33,7 +33,7 @@ export default function Home() {
             visb: false,
             visp: false,
             correctAnswers: [],
-            quantityWords: ["LATTE", "FRIED FOODS", "CANDY", "PATCH", "TURKEY LEG", "ZOMBIE", "WITCH", "FUNNEL CAKE", "PETTING ZOO", "GHOST", "STICKERS", "PIE", "VAMPIRE", "TOYS", "CHIPS", "LANTERN"]
+            quantityWords: ['MAN', 'LIGHTS', 'STICK', 'BALL', 'ORNAMENT', 'SCARF', 'HAM', 'WREATH', 'COAL', 'GLOBE', 'CARROT', 'HOT COCOA', 'ANGEL', 'EGGNOG', 'MISTLETOE', 'CRANBERRY SAUCE']
           },
           { merge: false }
         );
@@ -68,7 +68,7 @@ export default function Home() {
               visb: false,
               visp: false,
               correctAnswers: [],
-              quantityWords: ["LATTE", "FRIED FOODS", "CANDY", "PATCH", "TURKEY LEG", "ZOMBIE", "WITCH", "FUNNEL CAKE", "PETTING ZOO", "GHOST", "STICKERS", "PIE", "VAMPIRE", "TOYS", "CHIPS", "LANTERN"]
+              quantityWords: ['MAN', 'LIGHTS', 'STICK', 'BALL', 'ORNAMENT', 'SCARF', 'HAM', 'WREATH', 'COAL', 'GLOBE', 'CARROT', 'HOT COCOA', 'ANGEL', 'EGGNOG', 'MISTLETOE', 'CRANBERRY SAUCE']
             });
           }
           router.push("/connections");
