@@ -41,22 +41,22 @@ export default function Home() {
             visp: false,
             correctAnswers: [],
             quantityWords: [
+              "DOVE",
+              "TEDDY BEAR",
+              "ROSE",
+              "NOTES",
+              "HUG",
+              "CUPID",
+              "GIFT GIVING",
               "LETTER",
-              "STORY",
               "SONG",
-              "POEM", // LOVE (Purple)
               "CHOCOLATE",
               "STRAWBERRIES",
-              "TEDDY BEAR",
-              "FLOWERS", // VALENTINE GIFTS (Yellow)
+              "KISS",
+              "POEM",
+              "FLOWERS",
               "HEART",
-              "CUPID",
-              "ROSE",
-              "DOVE", // VALENTINE SYMBOLS (Blue)
-              "GIFT GIVING",
-              "HUG",
-              "NOTES",
-              "KISS", // ROMANTIC GESTURES (Green)
+              "STORY",
             ],
           },
           { merge: false }
@@ -93,22 +93,22 @@ export default function Home() {
               visp: false,
               correctAnswers: [],
               quantityWords: [
+                "DOVE",
+                "TEDDY BEAR",
+                "ROSE",
+                "NOTES",
+                "HUG",
+                "CUPID",
+                "GIFT GIVING",
                 "LETTER",
-                "STORY",
                 "SONG",
-                "POEM", // LOVE (Purple)
                 "CHOCOLATE",
                 "STRAWBERRIES",
-                "TEDDY BEAR",
-                "FLOWERS", // VALENTINE GIFTS (Yellow)
+                "KISS",
+                "POEM",
+                "FLOWERS",
                 "HEART",
-                "CUPID",
-                "ROSE",
-                "DOVE", // VALENTINE SYMBOLS (Blue)
-                "GIFT GIVING",
-                "HUG",
-                "NOTES",
-                "KISS", // ROMANTIC GESTURES (Green)
+                "STORY",
               ],
             });
           }

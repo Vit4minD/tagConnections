@@ -42,22 +42,22 @@ export default function Home() {
   } = useDisclosure();
   const [clicked, setClicked] = useState(false);
   const [quantityWords, setQuatityWords] = useState<string[]>([
+    "DOVE",
+    "TEDDY BEAR",
+    "ROSE",
+    "NOTES",
+    "HUG",
+    "CUPID",
+    "GIFT GIVING",
     "LETTER",
-    "STORY",
     "SONG",
-    "POEM", // LOVE (Purple)
     "CHOCOLATE",
     "STRAWBERRIES",
-    "TEDDY BEAR",
-    "FLOWERS", // VALENTINE GIFTS (Yellow)
+    "KISS",
+    "POEM",
+    "FLOWERS",
     "HEART",
-    "CUPID",
-    "ROSE",
-    "DOVE", // VALENTINE SYMBOLS (Blue)
-    "GIFT GIVING",
-    "HUG",
-    "NOTES",
-    "KISS", // ROMANTIC GESTURES (Green)
+    "STORY",
   ]);
   const [user, setUser] = useState<null | User>(null);
   const toast = useToast();
