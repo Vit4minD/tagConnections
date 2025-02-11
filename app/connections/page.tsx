@@ -709,9 +709,7 @@ export default function Home() {
             )}
           </form>
           {correctAnswers.length === 4 &&
-            (user?.email == "henryctran2007@gmail.com" ||
-              user?.email == "tara.canady@tagmagnet.org" ||
-              user?.email == "tara.canadyyy@gmail.com") && (
+            user?.email == "henryctran2007@gmail.com" && (
               <>
                 <button
                   onClick={onSecondOpen}
