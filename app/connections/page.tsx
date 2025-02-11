@@ -42,22 +42,22 @@ export default function Home() {
   } = useDisclosure();
   const [clicked, setClicked] = useState(false);
   const [quantityWords, setQuatityWords] = useState<string[]>([
-    "MAN",
-    "LIGHTS",
-    "STICK",
-    "BALL",
-    "ORNAMENT",
-    "SCARF",
-    "HAM",
-    "WREATH",
-    "COAL",
-    "GLOBE",
-    "CARROT",
-    "HOT COCOA",
-    "ANGEL",
-    "EGGNOG",
-    "MISTLETOE",
-    "CRANBERRY SAUCE",
+    "LETTER",
+    "STORY",
+    "SONG",
+    "POEM", // LOVE (Purple)
+    "CHOCOLATE",
+    "STRAWBERRIES",
+    "TEDDY BEAR",
+    "FLOWERS", // VALENTINE GIFTS (Yellow)
+    "HEART",
+    "CUPID",
+    "ROSE",
+    "DOVE", // VALENTINE SYMBOLS (Blue)
+    "GIFT GIVING",
+    "HUG",
+    "NOTES",
+    "KISS", // ROMANTIC GESTURES (Green)
   ]);
   const [user, setUser] = useState<null | User>(null);
   const toast = useToast();
@@ -162,17 +162,15 @@ export default function Home() {
       setClicked(false);
     }, 300);
   };
-
-  //word list, title is last index
-  const yellow = ["EGGNOG", "HOT COCOA", "HAM", "CRANBERRY SAUCE"];
-  const green = ["ORNAMENT", "MISTLETOE", "WREATH", "LIGHTS"];
-  const blue = ["STICK", "SCARF", "CARROT", "COAL"];
-  const purple = ["ANGEL", "BALL", "GLOBE", "MAN"];
+  const purple = ["LETTER", "STORY", "SONG", "POEM"]; // LOVE
+  const yellow = ["CHOCOLATE", "STRAWBERRIES", "TEDDY BEAR", "FLOWERS"]; // VALENTINE GIFTS
+  const blue = ["HEART", "CUPID", "ROSE", "DOVE"]; // VALENTINE SYMBOLS
+  const green = ["GIFT GIVING", "HUG", "NOTES", "KISS"]; // ROMANTIC GESTURES
   const groupAnswers = {
     yellow: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-yellow rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          {"CHRISTMAS FOODS"}
+          {"VALENTINE GIFTS"}
           <div className="font-normal">
             {yellow[0]}, {yellow[1]}, {yellow[2]}, {yellow[3]}
           </div>
@@ -182,7 +180,7 @@ export default function Home() {
     green: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-green rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          {"CHRISTMAS DECOR"}
+          {"ROMANTIC GESTURES"}
           <div className="font-normal">
             {green[0]}, {green[1]}, {green[2]}, {green[3]}
           </div>
@@ -192,7 +190,7 @@ export default function Home() {
     blue: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-blue rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          {"SNOWMAN"}
+          {"VALENTINE SYMBOLS"}
           <div className="font-normal">
             {blue[0]}, {blue[1]}, {blue[2]}, {blue[3]}
           </div>
@@ -202,7 +200,7 @@ export default function Home() {
     purple: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-purple rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          {"SNOW _"}
+          {"LOVE _"}
           <div className="font-normal">
             {purple[0]}, {purple[1]}, {purple[2]}, {purple[3]}
           </div>
@@ -628,17 +626,17 @@ export default function Home() {
                   }}
                   key={index}
                   value={word}
-                  className={`select-none ease-out duration-75 rounded-xl mt-2 h-20 lg:h-24 items-center text-sm md:text-sm justify-center flex lg:text-xl font-bold 
+                  className={`select-none ease-out duration-75 rounded-xl mt-2 h-20 lg:h-24 items-center text-sm md:text-sm justify-center flex lg:text-xl font-bold
                 ${
                   selectedWords.includes(word)
                     ? "bg-nyt-grayer text-white"
                     : "bg-nyt-gray text-black"
-                } 
+                }
                 ${
                   selectedWords.includes(word) && selectAnimation
                     ? "animate-shake"
                     : ""
-                } 
+                }
                 ${
                   selectedWords.includes(word) && correctAnimation
                     ? "animate-bounceOnce"
@@ -646,7 +644,7 @@ export default function Home() {
                 }`}
                 >
                   <label
-                    className={`hover: cursor-pointer ${
+                    className={`lg:max-w-[150px] max-w-[97.91px] hover: cursor-pointer ${
                       clicked ? " animate-fade" : ""
                     }`}
                   >
@@ -709,7 +707,9 @@ export default function Home() {
             )}
           </form>
           {correctAnswers.length === 4 &&
-            user?.email == "henryctran2007@gmail.com" && (
+            (user?.email == "henryctran2007@gmail.com" ||
+              user?.email == "tara.canady@tagmagnet.org" ||
+              user?.email == "tara.canadyyy@gmail.com") && (
               <>
                 <button
                   onClick={onSecondOpen}
