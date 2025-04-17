@@ -573,7 +573,7 @@ export default function Home() {
           <div className="mt-12 ml-40 gap-3 text-5xl flex justify-start items-end font-extrabold font-sans">
             <div className="">Griffin Connections</div>
             <div className="text-2xl font-sans font-extralight">
-              Feb 14, 2025
+              April 16, 2025
             </div>
           </div>
         </div>
