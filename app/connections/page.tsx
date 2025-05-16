@@ -42,22 +42,10 @@ export default function Home() {
   } = useDisclosure();
   const [clicked, setClicked] = useState(false);
   const [quantityWords, setQuatityWords] = useState<string[]>([
-    "BLOOM",
-    "DUST",
-    "SUNSHINE",
-    "BUD",
-    "SPORES",
-    "BASKET",
-    "POLLEN",
-    "STORM",
-    "BUNNY",
-    "BLOSSOM",
-    "RAINBOW",
-    "ISLAND",
-    "HAZE",
-    "SPROUT",
-    "FUR",
-    "EGG",
+    "MEMORIES", "SKIP", "CAP", "DREAM",
+    "DOOMSCROLL", "FRIENDS", "LIFE", "SLACK",
+    "PICTURES", "TASSEL", "DIPLOMA", "APPLICATION",
+    "MAJOR", "SNOOZE", "LESSONS", "GOWN"
   ]);
   const [user, setUser] = useState<null | User>(null);
   const toast = useToast();
@@ -162,19 +150,20 @@ export default function Home() {
       setClicked(false);
     }, 300);
   };
-  //bud, sprout, bloom, blossom -> new beginnings
-  //Egg, Bunny, Basket, Island -> Easter _
-  // Pollen, Dust, Spores, Fur -> Allergy Season
-  // Sunshine, Storm, Rainbow, Haze -> Spring Weather
-  const purple = ["EGG", "BUNNY", "BASKET", "ISLAND"]; // LOVE
-  const yellow = ["BUD", "SPROUT", "BLOOM", "BLOSSOM"]; // VALENTINE GIFTS
-  const blue = ["SUNSHINE", "STORM", "RAINBOW", "HAZE"]; // VALENTINE SYMBOLS
-  const green = ["POLLEN", "DUST", "SPORES", "FUR"]; // ROMANTIC GESTURES
+  // Graduation Attire
+  const yellow = ["CAP", "GOWN", "TASSEL", "DIPLOMA"];
+  // What You Leave TAG With
+  const green = ["PICTURES", "MEMORIES", "LESSONS", "FRIENDS"];
+  // Senioritis
+  const blue = ["SLACK", "SKIP", "SNOOZE", "DOOMSCROLL"];
+  // College (e.g. College Major, College Dream, etc.)
+  const purple = ["MAJOR", "DREAM", "LIFE", "APPLICATION"];
+
   const groupAnswers = {
     yellow: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-yellow rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          {"NEW BEGINNINGS"}
+          {"GRADUATION ATTIRE"}
           <div className="font-normal">
             {yellow[0]}, {yellow[1]}, {yellow[2]}, {yellow[3]}
           </div>
@@ -184,7 +173,7 @@ export default function Home() {
     green: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-green rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          {"ALLERGY SEASON"}
+          {"WHAT YOU LEAVE WITH"}
           <div className="font-normal">
             {green[0]}, {green[1]}, {green[2]}, {green[3]}
           </div>
@@ -194,7 +183,7 @@ export default function Home() {
     blue: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-blue rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          {"SPRING WEATHER"}
+          {"SENORITIS"}
           <div className="font-normal">
             {blue[0]}, {blue[1]}, {blue[2]}, {blue[3]}
           </div>
@@ -204,7 +193,7 @@ export default function Home() {
     purple: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-purple rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          {"EASTER _"}
+          {"COLLEGE _"}
           <div className="font-normal">
             {purple[0]}, {purple[1]}, {purple[2]}, {purple[3]}
           </div>
@@ -573,7 +562,7 @@ export default function Home() {
           <div className="mt-12 ml-40 gap-3 text-5xl flex justify-start items-end font-extrabold font-sans">
             <div className="">Griffin Connections</div>
             <div className="text-2xl font-sans font-extralight">
-              April 16, 2025
+              May 16, 2025
             </div>
           </div>
         </div>
