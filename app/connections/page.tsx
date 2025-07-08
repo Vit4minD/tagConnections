@@ -41,12 +41,15 @@ export default function Home() {
     onClose: onSecondClose,
   } = useDisclosure();
   const [clicked, setClicked] = useState(false);
-  const [quantityWords, setQuatityWords] = useState<string[]>([
-    "MEMORIES", "SKIP", "CAP", "DREAM",
-    "DOOMSCROLL", "FRIENDS", "LIFE", "SLACK",
-    "PICTURES", "TASSEL", "DIPLOMA", "APPLICATION",
-    "MAJOR", "SNOOZE", "LESSONS", "GOWN"
-  ]);
+  const [quantityWords, setQuatityWords] = useState<string[]>([]);
+  const [yellow, setYellow] = useState<string[]>([]);
+  const [green, setGreen] = useState<string[]>([]);
+  const [blue, setBlue] = useState<string[]>([]);
+  const [purple, setPurple] = useState<string[]>([]);
+  const [yellowTitle, setYellowTitle] = useState("");
+  const [greenTitle, setGreenTitle] = useState("");
+  const [blueTitle, setBlueTitle] = useState("");
+  const [purpleTitle, setPurpleTitle] = useState("");
   const [user, setUser] = useState<null | User>(null);
   const toast = useToast();
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
@@ -60,6 +63,28 @@ export default function Home() {
     [visg, setVisg] = useState(false),
     [visb, setVisb] = useState(false),
     [visp, setVisp] = useState(false);
+  useEffect(() => {
+    async function fetchWords() {
+      try {
+        const res = await fetch("/api/words");
+        const data = await res.json();
+        if (Array.isArray(data.wordSet)) setQuatityWords(data.wordSet);
+        if (Array.isArray(data.yellow)) setYellow(data.yellow);
+        if (Array.isArray(data.green)) setGreen(data.green);
+        if (Array.isArray(data.blue)) setBlue(data.blue);
+        if (Array.isArray(data.purple)) setPurple(data.purple);
+        if (typeof data.yellowTitle === "string")
+          setYellowTitle(data.yellowTitle);
+        if (typeof data.greenTitle === "string") setGreenTitle(data.greenTitle);
+        if (typeof data.blueTitle === "string") setBlueTitle(data.blueTitle);
+        if (typeof data.purpleTitle === "string")
+          setPurpleTitle(data.purpleTitle);
+      } catch (e) {
+        console.error("Failed to fetch wordSet from API", e);
+      }
+    }
+    fetchWords();
+  }, []);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -150,22 +175,19 @@ export default function Home() {
       setClicked(false);
     }, 300);
   };
-  // Graduation Attire
-  const yellow = ["CAP", "GOWN", "TASSEL", "DIPLOMA"];
-  // What You Leave TAG With
-  const green = ["PICTURES", "MEMORIES", "LESSONS", "FRIENDS"];
-  // Senioritis
-  const blue = ["SLACK", "SKIP", "SNOOZE", "DOOMSCROLL"];
-  // College (e.g. College Major, College Dream, etc.)
-  const purple = ["MAJOR", "DREAM", "LIFE", "APPLICATION"];
 
   const groupAnswers = {
     yellow: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-yellow rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          {"GRADUATION ATTIRE"}
+          {yellowTitle}
           <div className="font-normal">
-            {yellow[0]}, {yellow[1]}, {yellow[2]}, {yellow[3]}
+            {yellow.map((item, index) => (
+              <span key={index}>
+                {item}
+                {index < yellow.length - 1 ? ", " : ""}
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -173,9 +195,14 @@ export default function Home() {
     green: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-green rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          {"WHAT YOU LEAVE WITH"}
+          {greenTitle}
           <div className="font-normal">
-            {green[0]}, {green[1]}, {green[2]}, {green[3]}
+            {green.map((item, index) => (
+              <span key={index}>
+                {item}
+                {index < green.length - 1 ? ", " : ""}
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -183,9 +210,14 @@ export default function Home() {
     blue: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-blue rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          {"SENORITIS"}
+          {blueTitle}
           <div className="font-normal">
-            {blue[0]}, {blue[1]}, {blue[2]}, {blue[3]}
+            {blue.map((item, index) => (
+              <span key={index}>
+                {item}
+                {index < blue.length - 1 ? ", " : ""}
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -193,9 +225,14 @@ export default function Home() {
     purple: (
       <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-purple rounded-xl flex justify-center items-center">
         <div className="flex-col font-bold text-center">
-          {"COLLEGE _"}
+          {purpleTitle}
           <div className="font-normal">
-            {purple[0]}, {purple[1]}, {purple[2]}, {purple[3]}
+            {purple.map((item, index) => (
+              <span key={index}>
+                {item}
+                {index < purple.length - 1 ? ", " : ""}
+              </span>
+            ))}
           </div>
         </div>
       </div>

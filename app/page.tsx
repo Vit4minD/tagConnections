@@ -12,7 +12,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 
 export default function Home() {
@@ -20,6 +20,23 @@ export default function Home() {
   const provider = new GoogleAuthProvider();
   const colRef = collection(db, "users");
   const [loading, setLoading] = useState(false);
+  const [quantityWords, setQuantityWords] = useState<string[]>([]);
+
+  // Fetch wordSet from API on mount
+  useEffect(() => {
+    async function fetchWords() {
+      try {
+        const res = await fetch("/api/words");
+        const data = await res.json();
+        if (Array.isArray(data.wordSet)) {
+          setQuantityWords(data.wordSet);
+        }
+      } catch (e) {
+        console.error("Failed to fetch wordSet from API", e);
+      }
+    }
+    fetchWords();
+  }, []);
 
   async function updateAllDocuments() {
     const collectionRef = collection(db, "users"); // Replace 'your-collection-name' with your actual collection name
@@ -40,24 +57,7 @@ export default function Home() {
             visb: false,
             visp: false,
             correctAnswers: [],
-            quantityWords: [
-              "MEMORIES",
-              "SKIP",
-              "CAP",
-              "DREAM",
-              "DOOMSCROLL",
-              "FRIENDS",
-              "LIFE",
-              "SLACK",
-              "PICTURES",
-              "TASSEL",
-              "DIPLOMA",
-              "APPLICATION",
-              "MAJOR",
-              "SNOOZE",
-              "LESSONS",
-              "GOWN",
-            ],
+            quantityWords: quantityWords,
           },
           { merge: false }
         );
@@ -92,24 +92,7 @@ export default function Home() {
               visb: false,
               visp: false,
               correctAnswers: [],
-              quantityWords: [
-                "MEMORIES",
-                "SKIP",
-                "CAP",
-                "DREAM",
-                "DOOMSCROLL",
-                "FRIENDS",
-                "LIFE",
-                "SLACK",
-                "PICTURES",
-                "TASSEL",
-                "DIPLOMA",
-                "APPLICATION",
-                "MAJOR",
-                "SNOOZE",
-                "LESSONS",
-                "GOWN",
-              ],
+              quantityWords: quantityWords,
             });
           }
           router.push("/connections");
