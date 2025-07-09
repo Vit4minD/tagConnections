@@ -42,7 +42,7 @@ export default function AdminWordsPage() {
   const [error, setError] = useState("");
   const toast = useToast();
   // Add state for raw input values
-  const [rawInputs, setRawInputs] = useState<any>({});
+  // const [rawInputs, setRawInputs] = useState<any>({});
 
   useEffect(() => {
     if (!unlocked) return;
@@ -54,18 +54,7 @@ export default function AdminWordsPage() {
       .finally(() => setLoading(false));
   }, [unlocked]);
 
-  // When loading data, initialize rawInputs
-  useEffect(() => {
-    if (data) {
-      setRawInputs({
-        wordSet: "",
-        yellow: "",
-        green: "",
-        blue: "",
-        purple: "",
-      });
-    }
-  }, [data]);
+  // Remove useEffect for rawInputs
 
   async function updateAllDocumentsWithWords(wordSet: string[]) {
     const collectionRef = collection(db, "users");
@@ -114,50 +103,13 @@ export default function AdminWordsPage() {
     setData((prev: any) => ({ ...prev, [key]: value }));
   };
 
-  const handleArrayChange = (key: string, value: string) => {
-    setRawInputs((prev: any) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
+  // Remove handleArrayChange
 
   // In handleSave, process rawInputs into arrays
   const handleSave = async () => {
     setSaving(true);
     try {
-      const processedData = {
-        ...data,
-        wordSet: rawInputs.wordSet
-          ? rawInputs.wordSet
-              .split(/,\s*/)
-              .map((w: string) => w.trim())
-              .filter(Boolean)
-          : [],
-        yellow: rawInputs.yellow
-          ? rawInputs.yellow
-              .split(/,\s*/)
-              .map((w: string) => w.trim())
-              .filter(Boolean)
-          : [],
-        green: rawInputs.green
-          ? rawInputs.green
-              .split(/,\s*/)
-              .map((w: string) => w.trim())
-              .filter(Boolean)
-          : [],
-        blue: rawInputs.blue
-          ? rawInputs.blue
-              .split(/,\s*/)
-              .map((w: string) => w.trim())
-              .filter(Boolean)
-          : [],
-        purple: rawInputs.purple
-          ? rawInputs.purple
-              .split(/,\s*/)
-              .map((w: string) => w.trim())
-              .filter(Boolean)
-          : [],
-      };
+      const processedData = { ...data };
       const res = await fetch("/api/words", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -449,21 +401,25 @@ export default function AdminWordsPage() {
                           fontWeight="semibold"
                           mb={3}
                         >
-                          16 Word Set (enter comma separated & all caps)
+                          16 Word Set (PASTE words in comma separated w/ space &
+                          all caps)
                         </FormLabel>
-                        {data.wordSet && (
-                          <Text fontSize="sm" color="gray.500" mb={2}>
-                            Current:{" "}
-                            {Array.isArray(data.wordSet)
-                              ? data.wordSet.join(", ")
-                              : data.wordSet}
-                          </Text>
-                        )}
                         <Textarea
                           id="wordSet"
-                          onChange={(
-                            e: React.ChangeEvent<HTMLTextAreaElement>
-                          ) => handleArrayChange("wordSet", e.target.value)}
+                          value={
+                            Array.isArray(data.wordSet)
+                              ? data.wordSet.join(", ")
+                              : ""
+                          }
+                          onChange={(e) =>
+                            setData((prev: any) => ({
+                              ...prev,
+                              wordSet: e.target.value
+                                .split(/,\s*/)
+                                .map((w: string) => w.trim())
+                                .filter(Boolean),
+                            }))
+                          }
                           placeholder="Enter words separated by commas and a space (eg. 'abc, abc')"
                           minH="200px"
                           borderColor="blue.200"
@@ -490,8 +446,11 @@ export default function AdminWordsPage() {
                         <Input
                           id="yellowTitle"
                           value={data.yellowTitle || ""}
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            handleChange("yellowTitle", e.target.value)
+                          onChange={(e) =>
+                            setData((prev: any) => ({
+                              ...prev,
+                              yellowTitle: e.target.value,
+                            }))
                           }
                           placeholder="Enter yellow category title"
                           borderColor="yellow.200"
@@ -508,21 +467,24 @@ export default function AdminWordsPage() {
                           fontWeight="semibold"
                           mb={3}
                         >
-                          4 Yellow Words (enter comma separated & all caps)
+                          4 Yellow Words
                         </FormLabel>
-                        {data.yellow && (
-                          <Text fontSize="sm" color="gray.500" mb={2}>
-                            Current:{" "}
-                            {Array.isArray(data.yellow)
-                              ? data.yellow.join(", ")
-                              : data.yellow}
-                          </Text>
-                        )}
                         <Textarea
                           id="yellow"
-                          onChange={(
-                            e: React.ChangeEvent<HTMLTextAreaElement>
-                          ) => handleArrayChange("yellow", e.target.value)}
+                          value={
+                            Array.isArray(data.yellow)
+                              ? data.yellow.join(", ")
+                              : ""
+                          }
+                          onChange={(e) =>
+                            setData((prev: any) => ({
+                              ...prev,
+                              yellow: e.target.value
+                                .split(/,\s*/)
+                                .map((w: string) => w.trim())
+                                .filter(Boolean),
+                            }))
+                          }
                           placeholder="Enter yellow words separated by commas and a space (eg. 'abc, abc')"
                           minH="120px"
                           borderColor="yellow.200"
@@ -566,21 +528,24 @@ export default function AdminWordsPage() {
                           fontWeight="semibold"
                           mb={3}
                         >
-                          4 Green Words (enter comma separated & all caps)
+                          4 Green Words
                         </FormLabel>
-                        {data.green && (
-                          <Text fontSize="sm" color="gray.500" mb={2}>
-                            Current:{" "}
-                            {Array.isArray(data.green)
-                              ? data.green.join(", ")
-                              : data.green}
-                          </Text>
-                        )}
                         <Textarea
                           id="green"
-                          onChange={(
-                            e: React.ChangeEvent<HTMLTextAreaElement>
-                          ) => handleArrayChange("green", e.target.value)}
+                          value={
+                            Array.isArray(data.green)
+                              ? data.green.join(", ")
+                              : ""
+                          }
+                          onChange={(e) =>
+                            setData((prev: any) => ({
+                              ...prev,
+                              green: e.target.value
+                                .split(/,\s*/)
+                                .map((w: string) => w.trim())
+                                .filter(Boolean),
+                            }))
+                          }
                           placeholder="Enter green words separated by commas and a space (eg. 'abc, abc')"
                           minH="120px"
                           borderColor="green.200"
@@ -624,21 +589,22 @@ export default function AdminWordsPage() {
                           fontWeight="semibold"
                           mb={3}
                         >
-                          4 Blue Words (enter comma separated & all caps)
+                          4 Blue Words
                         </FormLabel>
-                        {data.blue && (
-                          <Text fontSize="sm" color="gray.500" mb={2}>
-                            Current:{" "}
-                            {Array.isArray(data.blue)
-                              ? data.blue.join(", ")
-                              : data.blue}
-                          </Text>
-                        )}
                         <Textarea
                           id="blue"
-                          onChange={(
-                            e: React.ChangeEvent<HTMLTextAreaElement>
-                          ) => handleArrayChange("blue", e.target.value)}
+                          value={
+                            Array.isArray(data.blue) ? data.blue.join(", ") : ""
+                          }
+                          onChange={(e) =>
+                            setData((prev: any) => ({
+                              ...prev,
+                              blue: e.target.value
+                                .split(/,\s*/)
+                                .map((w: string) => w.trim())
+                                .filter(Boolean),
+                            }))
+                          }
                           placeholder="Enter blue words separated by commas and a space (eg. 'abc, abc')"
                           minH="120px"
                           borderColor="blue.200"
@@ -682,21 +648,24 @@ export default function AdminWordsPage() {
                           fontWeight="semibold"
                           mb={3}
                         >
-                          4 Purple Words (enter comma separated & all caps)
+                          4 Purple Words
                         </FormLabel>
-                        {data.purple && (
-                          <Text fontSize="sm" color="gray.500" mb={2}>
-                            Current:{" "}
-                            {Array.isArray(data.purple)
-                              ? data.purple.join(", ")
-                              : data.purple}
-                          </Text>
-                        )}
                         <Textarea
                           id="purple"
-                          onChange={(
-                            e: React.ChangeEvent<HTMLTextAreaElement>
-                          ) => handleArrayChange("purple", e.target.value)}
+                          value={
+                            Array.isArray(data.purple)
+                              ? data.purple.join(", ")
+                              : ""
+                          }
+                          onChange={(e) =>
+                            setData((prev: any) => ({
+                              ...prev,
+                              purple: e.target.value
+                                .split(/,\s*/)
+                                .map((w: string) => w.trim())
+                                .filter(Boolean),
+                            }))
+                          }
                           placeholder="Enter purple words separated by commas and a space (eg. 'abc, abc')"
                           minH="120px"
                           borderColor="purple.200"
