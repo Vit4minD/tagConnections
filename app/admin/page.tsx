@@ -58,11 +58,11 @@ export default function AdminWordsPage() {
   useEffect(() => {
     if (data) {
       setRawInputs({
-        wordSet: data.wordSet ? data.wordSet.join(", ") : "",
-        yellow: data.yellow ? data.yellow.join(", ") : "",
-        green: data.green ? data.green.join(", ") : "",
-        blue: data.blue ? data.blue.join(", ") : "",
-        purple: data.purple ? data.purple.join(", ") : "",
+        wordSet: "",
+        yellow: "",
+        green: "",
+        blue: "",
+        purple: "",
       });
     }
   }, [data]);
@@ -115,12 +115,11 @@ export default function AdminWordsPage() {
   };
 
   const handleArrayChange = (key: string, value: string) => {
-    setRawInputs((prev: any) => ({ ...prev, [key]: value }));
+    setRawInputs((prev: any) => ({
+      ...prev,
+      [key]: value,
+    }));
   };
-
-  // Helper to always display joined with ', '
-  const getTextareaValue = (arr: string[] | undefined) =>
-    arr ? arr.join(", ") : "";
 
   // In handleSave, process rawInputs into arrays
   const handleSave = async () => {
@@ -452,9 +451,16 @@ export default function AdminWordsPage() {
                         >
                           16 Word Set (enter comma separated & all caps)
                         </FormLabel>
+                        {data.wordSet && (
+                          <Text fontSize="sm" color="gray.500" mb={2}>
+                            Current:{" "}
+                            {Array.isArray(data.wordSet)
+                              ? data.wordSet.join(", ")
+                              : data.wordSet}
+                          </Text>
+                        )}
                         <Textarea
                           id="wordSet"
-                          value={rawInputs.wordSet}
                           onChange={(
                             e: React.ChangeEvent<HTMLTextAreaElement>
                           ) => handleArrayChange("wordSet", e.target.value)}
@@ -504,9 +510,16 @@ export default function AdminWordsPage() {
                         >
                           4 Yellow Words (enter comma separated & all caps)
                         </FormLabel>
+                        {data.yellow && (
+                          <Text fontSize="sm" color="gray.500" mb={2}>
+                            Current:{" "}
+                            {Array.isArray(data.yellow)
+                              ? data.yellow.join(", ")
+                              : data.yellow}
+                          </Text>
+                        )}
                         <Textarea
                           id="yellow"
-                          value={rawInputs.yellow}
                           onChange={(
                             e: React.ChangeEvent<HTMLTextAreaElement>
                           ) => handleArrayChange("yellow", e.target.value)}
@@ -555,9 +568,16 @@ export default function AdminWordsPage() {
                         >
                           4 Green Words (enter comma separated & all caps)
                         </FormLabel>
+                        {data.green && (
+                          <Text fontSize="sm" color="gray.500" mb={2}>
+                            Current:{" "}
+                            {Array.isArray(data.green)
+                              ? data.green.join(", ")
+                              : data.green}
+                          </Text>
+                        )}
                         <Textarea
                           id="green"
-                          value={rawInputs.green}
                           onChange={(
                             e: React.ChangeEvent<HTMLTextAreaElement>
                           ) => handleArrayChange("green", e.target.value)}
@@ -604,11 +624,18 @@ export default function AdminWordsPage() {
                           fontWeight="semibold"
                           mb={3}
                         >
-                          4Blue Words (enter comma separated & all caps)
+                          4 Blue Words (enter comma separated & all caps)
                         </FormLabel>
+                        {data.blue && (
+                          <Text fontSize="sm" color="gray.500" mb={2}>
+                            Current:{" "}
+                            {Array.isArray(data.blue)
+                              ? data.blue.join(", ")
+                              : data.blue}
+                          </Text>
+                        )}
                         <Textarea
                           id="blue"
-                          value={rawInputs.blue}
                           onChange={(
                             e: React.ChangeEvent<HTMLTextAreaElement>
                           ) => handleArrayChange("blue", e.target.value)}
@@ -657,9 +684,16 @@ export default function AdminWordsPage() {
                         >
                           4 Purple Words (enter comma separated & all caps)
                         </FormLabel>
+                        {data.purple && (
+                          <Text fontSize="sm" color="gray.500" mb={2}>
+                            Current:{" "}
+                            {Array.isArray(data.purple)
+                              ? data.purple.join(", ")
+                              : data.purple}
+                          </Text>
+                        )}
                         <Textarea
                           id="purple"
-                          value={rawInputs.purple}
                           onChange={(
                             e: React.ChangeEvent<HTMLTextAreaElement>
                           ) => handleArrayChange("purple", e.target.value)}

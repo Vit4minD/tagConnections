@@ -17,32 +17,12 @@
     "LESSONS",
     "GOWN"
   ],
-  "yellow": [
-    "CAP",
-    "GOWN",
-    "TASSEL",
-    "DIPLOMA"
-  ],
+  "yellow": ["CAP", "GOWN", "TASSEL", "DIPLOMA"],
   "yellowTitle": "GRADUATION ATTIRE",
-  "green": [
-    "PICTURES",
-    "MEMORIES",
-    "LESSONS",
-    "FRIENDS"
-  ],
+  "green": ["PICTURES", "MEMORIES", "LESSONS", "FRIENDS"],
   "greenTitle": "WHAT YOU LEAVE WITH",
-  "blue": [
-    "SLACK",
-    "SKIP",
-    "SNOOZE",
-    "DOOMSCROLL"
-  ],
+  "blue": ["SLACK", "SKIP", "SNOOZE", "DOOMSCROLL"],
   "blueTitle": "SENORITIS",
-  "purple": [
-    "MAJOR",
-    "DREAM",
-    "LIFE",
-    "APPLICATION"
-  ],
+  "purple": ["MAJOR", "DREAM", "LIFE", "APPLICATION"],
   "purpleTitle": "COLLEGE _"
 }
