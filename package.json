@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.11.5",
     "canvas-confetti": "^1.9.3",
     "firebase": "^10.11.1",
+    "firebase-admin": "^13.4.0",
     "framer-motion": "^11.1.7",
     "next": "^14.2.15",
     "react": "^18",
