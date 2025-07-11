@@ -41,15 +41,24 @@ export default function Home() {
     onClose: onSecondClose,
   } = useDisclosure();
   const [clicked, setClicked] = useState(false);
-  const [quantityWords, setQuatityWords] = useState<string[]>([]);
-  const [yellow, setYellow] = useState<string[]>([]);
-  const [green, setGreen] = useState<string[]>([]);
-  const [blue, setBlue] = useState<string[]>([]);
-  const [purple, setPurple] = useState<string[]>([]);
-  const [yellowTitle, setYellowTitle] = useState("");
-  const [greenTitle, setGreenTitle] = useState("");
-  const [blueTitle, setBlueTitle] = useState("");
-  const [purpleTitle, setPurpleTitle] = useState("");
+  const [quantityWords, setQuatityWords] = useState<string[]>([
+    "MEMORIES",
+    "SKIP",
+    "CAP",
+    "DREAM",
+    "DOOMSCROLL",
+    "FRIENDS",
+    "LIFE",
+    "SLACK",
+    "PICTURES",
+    "TASSEL",
+    "DIPLOMA",
+    "APPLICATION",
+    "MAJOR",
+    "SNOOZE",
+    "LESSONS",
+    "GOWN",
+  ]);
   const [user, setUser] = useState<null | User>(null);
   const toast = useToast();
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
@@ -63,22 +72,14 @@ export default function Home() {
     [visg, setVisg] = useState(false),
     [visb, setVisb] = useState(false),
     [visp, setVisp] = useState(false);
+  const [dataJson, setDataJson] = useState<any>();
+
   useEffect(() => {
     async function fetchWords() {
       try {
         const res = await fetch("/api/words");
         const data = await res.json();
-        if (Array.isArray(data.wordSet)) setQuatityWords(data.wordSet);
-        if (Array.isArray(data.yellow)) setYellow(data.yellow);
-        if (Array.isArray(data.green)) setGreen(data.green);
-        if (Array.isArray(data.blue)) setBlue(data.blue);
-        if (Array.isArray(data.purple)) setPurple(data.purple);
-        if (typeof data.yellowTitle === "string")
-          setYellowTitle(data.yellowTitle);
-        if (typeof data.greenTitle === "string") setGreenTitle(data.greenTitle);
-        if (typeof data.blueTitle === "string") setBlueTitle(data.blueTitle);
-        if (typeof data.purpleTitle === "string")
-          setPurpleTitle(data.purpleTitle);
+        setDataJson(data);
       } catch (e) {
         console.error("Failed to fetch wordSet from API", e);
       }
@@ -122,7 +123,7 @@ export default function Home() {
       }
     };
     fetchUserData();
-  }, [user]);
+  }, [user, dataJson]);
 
   const updateUser = useCallback(async (userId: string, newData: any) => {
     const userRef = doc(db, "users", userId);
@@ -176,68 +177,8 @@ export default function Home() {
     }, 300);
   };
 
-  const groupAnswers = {
-    yellow: (
-      <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-yellow rounded-xl flex justify-center items-center">
-        <div className="flex-col font-bold text-center">
-          {yellowTitle}
-          <div className="font-normal">
-            {yellow.map((item, index) => (
-              <span key={index}>
-                {item}
-                {index < yellow.length - 1 ? ", " : ""}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    ),
-    green: (
-      <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-green rounded-xl flex justify-center items-center">
-        <div className="flex-col font-bold text-center">
-          {greenTitle}
-          <div className="font-normal">
-            {green.map((item, index) => (
-              <span key={index}>
-                {item}
-                {index < green.length - 1 ? ", " : ""}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    ),
-    blue: (
-      <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-blue rounded-xl flex justify-center items-center">
-        <div className="flex-col font-bold text-center">
-          {blueTitle}
-          <div className="font-normal">
-            {blue.map((item, index) => (
-              <span key={index}>
-                {item}
-                {index < blue.length - 1 ? ", " : ""}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    ),
-    purple: (
-      <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-purple rounded-xl flex justify-center items-center">
-        <div className="flex-col font-bold text-center">
-          {purpleTitle}
-          <div className="font-normal">
-            {purple.map((item, index) => (
-              <span key={index}>
-                {item}
-                {index < purple.length - 1 ? ", " : ""}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    ),
-  };
+  // Loading check (must be after all hooks, before using dataJson)
+
   function delay(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -252,6 +193,131 @@ export default function Home() {
   const [selectAnimation, setSelectAnimation] = useState(false);
   const [correctAnimation, setCorrectAnimation] = useState(false);
   const [pauseSubmission, setPauseSubmission] = useState(false);
+
+  const textSequence = [
+    "OMG!!",
+    "OMG!!",
+    "OMG!!",
+    "OMG!!",
+    "tara :3 is playing!!!",
+    "tara :3 is playing!!!",
+    "tara :3 is playing!!!",
+    "Click Me!!!!!",
+    "Click Me!!!!!",
+    "Click Me!!!!!",
+  ];
+  const noButtonResponses = [
+    "Why'd you press that :(",
+    "meanie.",
+    "No? Are you sure?? :(",
+    "You can't say no to this face! :(",
+    "C'mon, give me a chance!",
+    "Really? Not even a little bit? D:",
+    "Was it something I said?",
+    "I'll just ask again... :(",
+    "No way... Try again!",
+    "Don't make me cry :(",
+    "Never back down never what!",
+    "I'm heartbroken now 💔",
+    "Think twice before clicking that!",
+    "Are you playing hard to get? ",
+    "Wait, I thought we had something special!",
+    "Why so mean? ",
+    "Oops, wrong button, right?",
+    "Try saying yes this time! ",
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [gifSrc, setGifSrc] = useState("/cat.gif"); // Default GIF
+  const [valentineText, setValentineText] = useState(
+    "Will you be my Valentine? :3"
+  );
+  const [isNoClicked, setIsNoClicked] = useState(false); // Track if 'No' button has been clicked
+  const [noButtonPosition, setNoButtonPosition] = useState({
+    top: "auto",
+    left: "auto",
+  }); // Default position
+  const handleNoClick = () => {
+    const randomTop = Math.floor(Math.random() * 80); // Random top position (up to 80% of screen)
+    const randomLeft = Math.floor(Math.random() * 80); // Random left position (up to 80% of screen)
+    setNoButtonPosition({ top: `${randomTop}%`, left: `${randomLeft}%` });
+    setGifSrc("/sadMocha.gif"); // Change to a "No" reaction GIF
+    setValentineText(
+      noButtonResponses[Math.floor(Math.random() * noButtonResponses.length)]
+    );
+    setIsNoClicked(true); // Indicate that the 'No' button has been clicked
+  };
+  // Function to handle 'Yes' click: change text & GIF
+  const handleYesClick = () => {
+    setValentineText("Awesome Sauce :3");
+    setGifSrc("/yesMocha.gif"); // Change to a "Yes" reaction GIF
+    setAreButtonsVisible(false);
+  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % textSequence.length);
+    }, 400); // Change text every 2 seconds
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, [textSequence.length]);
+  const [areButtonsVisible, setAreButtonsVisible] = useState(true); // Controls button visibility
+
+  if (!dataJson) {
+    return <div>Loading...</div>;
+  }
+
+  // Graduation Attire
+  const yellow = dataJson.yellow;
+  // What You Leave TAG With
+  const green = dataJson.green;
+  // Senioritis
+  const blue = dataJson.blue;
+  // College (e.g. College Major, College Dream, etc.)
+  const purple = dataJson.purple;
+
+  const groupAnswers = {
+    yellow: (
+      <div className="animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-yellow rounded-xl flex justify-center items-center">
+        <div className="flex-col font-bold text-center">
+          {dataJson.yellowTitle}
+          <div className="font-normal">
+            {yellow[0]}, {yellow[1]}, {yellow[2]}, {yellow[3]}
+          </div>
+        </div>
+      </div>
+    ),
+    green: (
+      <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-green rounded-xl flex justify-center items-center">
+        <div className="flex-col font-bold text-center">
+          {dataJson.greenTitle}
+          <div className="font-normal">
+            {green[0]}, {green[1]}, {green[2]}, {green[3]}
+          </div>
+        </div>
+      </div>
+    ),
+    blue: (
+      <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-blue rounded-xl flex justify-center items-center">
+        <div className="flex-col font-bold text-center">
+          {dataJson.blueTitle}
+          <div className="font-normal">
+            {blue[0]}, {blue[1]}, {blue[2]}, {blue[3]}
+          </div>
+        </div>
+      </div>
+    ),
+    purple: (
+      <div className=" animate-popUp mt-2 flex-col font-sans h-20 text-base md:text-xl w-full bg-nyt-purple rounded-xl flex justify-center items-center">
+        <div className="flex-col font-bold text-center">
+          {dataJson.purpleTitle}
+          <div className="font-normal">
+            {purple[0]}, {purple[1]}, {purple[2]}, {purple[3]}
+          </div>
+        </div>
+      </div>
+    ),
+  };
   const checkAnswer = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setPauseSubmission(true);
@@ -284,19 +350,19 @@ export default function Home() {
       g = true,
       b = true,
       p = true;
-    yellow.forEach((element) => {
+    yellow.forEach((element: string) => {
       if (!selectedWords.includes(element)) y = false;
       else diffy--;
     });
-    green.forEach((element) => {
+    green.forEach((element: string) => {
       if (!selectedWords.includes(element)) g = false;
       else diffg--;
     });
-    blue.forEach((element) => {
+    blue.forEach((element: string) => {
       if (!selectedWords.includes(element)) b = false;
       else diffb--;
     });
-    purple.forEach((element) => {
+    purple.forEach((element: string) => {
       if (!selectedWords.includes(element)) p = false;
       else diffp--;
     });
@@ -522,75 +588,6 @@ export default function Home() {
       }
     }
   };
-
-  const textSequence = [
-    "OMG!!",
-    "OMG!!",
-    "OMG!!",
-    "OMG!!",
-    "tara :3 is playing!!!",
-    "tara :3 is playing!!!",
-    "tara :3 is playing!!!",
-    "Click Me!!!!!",
-    "Click Me!!!!!",
-    "Click Me!!!!!",
-  ];
-  const noButtonResponses = [
-    "Why'd you press that :(",
-    "meanie.",
-    "No? Are you sure?? :(",
-    "You can't say no to this face! :(",
-    "C'mon, give me a chance!",
-    "Really? Not even a little bit? D:",
-    "Was it something I said?",
-    "I'll just ask again... :(",
-    "No way... Try again!",
-    "Don't make me cry :(",
-    "Never back down never what!",
-    "I'm heartbroken now 💔",
-    "Think twice before clicking that!",
-    "Are you playing hard to get? ",
-    "Wait, I thought we had something special!",
-    "Why so mean? ",
-    "Oops, wrong button, right?",
-    "Try saying yes this time! ",
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [gifSrc, setGifSrc] = useState("/cat.gif"); // Default GIF
-  const [valentineText, setValentineText] = useState(
-    "Will you be my Valentine? :3"
-  );
-  const [isNoClicked, setIsNoClicked] = useState(false); // Track if 'No' button has been clicked
-  const [noButtonPosition, setNoButtonPosition] = useState({
-    top: "auto",
-    left: "auto",
-  }); // Default position
-  const handleNoClick = () => {
-    const randomTop = Math.floor(Math.random() * 80); // Random top position (up to 80% of screen)
-    const randomLeft = Math.floor(Math.random() * 80); // Random left position (up to 80% of screen)
-    setNoButtonPosition({ top: `${randomTop}%`, left: `${randomLeft}%` });
-    setGifSrc("/sadMocha.gif"); // Change to a "No" reaction GIF
-    setValentineText(
-      noButtonResponses[Math.floor(Math.random() * noButtonResponses.length)]
-    );
-    setIsNoClicked(true); // Indicate that the 'No' button has been clicked
-  };
-  // Function to handle 'Yes' click: change text & GIF
-  const handleYesClick = () => {
-    setValentineText("Awesome Sauce :3");
-    setGifSrc("/yesMocha.gif"); // Change to a "Yes" reaction GIF
-    setAreButtonsVisible(false);
-  };
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % textSequence.length);
-    }, 400); // Change text every 2 seconds
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
-  }, [textSequence.length]);
-  const [areButtonsVisible, setAreButtonsVisible] = useState(true); // Controls button visibility
 
   return (
     <ChakraProvider>
